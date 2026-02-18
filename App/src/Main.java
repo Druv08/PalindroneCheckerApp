@@ -1,32 +1,38 @@
-import java.util.Scanner;
+//version 1.0
+//author Druv
+//useCase: Welcome page
+
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
-
-    static boolean isPalindrome(String s) {
-        s = s.toLowerCase(); // ignore case
-        int start = 0, end = s.length() - 1;
-
-        while (start < end) {
-            if (s.charAt(start) != s.charAt(end)) {
-                return false;
-            }
-            start++;
-            end--;
-        }
-        return true;
-    }
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        JFrame frame = new JFrame("Palindrome Checker App");
+        frame.setSize(400, 250);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
 
-        System.out.print("Enter text: ");
-        String text = sc.nextLine();
+        JLabel label = new JLabel("Enter Text:");
+        JTextField textField = new JTextField(20);
+        JButton button = new JButton("Check Palindrome");
+        JLabel result = new JLabel("");
 
-        if (isPalindrome(text))
-            System.out.println("Palindrome");
-        else
-            System.out.println("Not Palindrome");
+        button.addActionListener(e -> {
+            String text = textField.getText().toLowerCase().replaceAll("[^a-z0-9]", "");
+            String reverse = new StringBuilder(text).reverse().toString();
 
-        sc.close();
+            if (text.equals(reverse)) {
+                result.setText("Palindrome!");
+            } else {
+                result.setText("Not Palindrome!");
+            }
+        });
+
+        frame.add(label);
+        frame.add(textField);
+        frame.add(button);
+        frame.add(result);
+
+        frame.setVisible(true);
     }
 }
